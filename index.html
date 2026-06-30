@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>오피스 제주 — 일하고 쉬는 섬</title>
+  <meta name="description" content="제주에서 일하고, 쉬고, 충전하는 워케이션 게스트하우스 오피스 제주" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600&family=Noto+Serif+KR:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #111111; --gray-dark: #3a3a3a; --gray: #767676;
+      --gray-light: #e8e8e8; --bg: #f9f8f6; --white: #ffffff;
+      --accent: #2d6a4f; --accent-light: #d8f3e3;
+      --serif: 'Noto Serif KR', Georgia, serif;
+      --sans: 'Noto Sans KR', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--black); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 3rem; background: rgba(249,248,246,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    nav.scrolled { border-color: var(--gray-light); }
+    .nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; letter-spacing: 0.05em; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.85rem; font-weight: 400; letter-spacing: 0.08em; color: var(--gray-dark); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; padding: 0.5rem 1.25rem; border: 1.5px solid var(--black); border-radius: 2px; color: var(--black); text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--black); color: var(--white); }
+
+    .hero { position: relative; height: 100vh; min-height: 640px; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; filter: brightness(0.7); transition: transform 8s ease-out; }
+    .hero:hover .hero-img { transform: scale(1.04); }
+    .hero-content { position: relative; z-index: 2; padding: 0 3rem 5rem; max-width: 720px; }
+    .hero-tag { display: inline-block; font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.75); margin-bottom: 1rem; }
+    .hero-title { font-family: var(--serif); font-size: clamp(2.4rem, 5.5vw, 4rem); font-weight: 600; color: var(--white); line-height: 1.25; margin-bottom: 1.25rem; }
+    .hero-sub { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.85); max-width: 480px; margin-bottom: 2.25rem; }
+    .hero-btn { display: inline-block; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; padding: 0.85rem 2rem; background: var(--white); color: var(--black); text-decoration: none; border-radius: 2px; transition: background 0.2s, color 0.2s; }
+    .hero-btn:hover { background: var(--accent); color: var(--white); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; right: 3rem; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.6); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; }
+    .hero-scroll::after { content: ''; display: block; width: 1px; height: 48px; background: rgba(255,255,255,0.4); animation: scrollLine 2s ease-in-out infinite; }
+    @keyframes scrollLine { 0%,100%{transform:scaleY(1);opacity:.4} 50%{transform:scaleY(.5);opacity:1} }
+
+    section { padding: 7rem 3rem; }
+    .section-label { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; }
+    .section-title { font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 600; line-height: 1.3; margin-bottom: 1.5rem; }
+    .section-body { font-size: 1rem; font-weight: 300; color: var(--gray-dark); max-width: 560px; line-height: 1.9; }
+
+    .intro { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .intro-img { width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 3px; display: block; }
+    .intro-img-wrap { position: relative; }
+    .intro-badge { position: absolute; bottom: -1.5rem; right: -1.5rem; width: 120px; height: 120px; background: var(--accent); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--white); font-size: 0.75rem; line-height: 1.4; text-align: center; font-weight: 500; }
+    .intro-badge strong { font-size: 1.6rem; font-family: var(--serif); }
+    .intro-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .stat { padding: 1.25rem; border: 1px solid var(--gray-light); border-radius: 3px; }
+    .stat-num { font-family: var(--serif); font-size: 1.8rem; font-weight: 600; color: var(--accent); }
+    .stat-desc { font-size: 0.82rem; color: var(--gray); margin-top: 0.25rem; }
+
+    .rooms-section { background: var(--white); padding: 7rem 3rem; }
+    .rooms-header { max-width: 1200px; margin: 0 auto 3.5rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; }
+    .rooms-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .room-card { position: relative; overflow: hidden; border-radius: 3px; cursor: pointer; }
+    .room-card:first-child { grid-column: span 2; }
+    .room-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .room-card:first-child .room-img { aspect-ratio: 16/9; }
+    .room-card:hover .room-img { transform: scale(1.05); }
+    .room-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.5rem 1.5rem; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%); color: var(--white); }
+    .room-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .room-tag { font-size: 0.75rem; color: rgba(255,255,255,0.75); letter-spacing: 0.08em; }
+
+    .amenities { max-width: 1200px; margin: 0 auto; }
+    .amenities-top { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 5rem; }
+    .amenity-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+    .amenity-item { padding: 1.75rem; border-bottom: 1px solid var(--gray-light); border-right: 1px solid var(--gray-light); transition: background 0.2s; }
+    .amenity-item:nth-child(2n) { border-right: none; }
+    .amenity-item:nth-last-child(-n+2) { border-bottom: none; }
+    .amenity-item:hover { background: var(--accent-light); }
+    .amenity-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .amenity-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.3rem; }
+    .amenity-desc { font-size: 0.8rem; color: var(--gray); line-height: 1.6; }
+
+    .feature-strip { background: var(--black); color: var(--white); padding: 5rem 3rem; }
+    .feature-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .feature-item { padding: 2rem; border-left: 1px solid rgba(255,255,255,0.12); }
+    .feature-num { font-family: var(--serif); font-size: 2.5rem; font-weight: 600; color: rgba(255,255,255,0.18); margin-bottom: 0.75rem; }
+    .feature-name { font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem; }
+    .feature-desc { font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    .location-section { background: var(--white); padding: 7rem 3rem; }
+    .location-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .location-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 3px; }
+    .location-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .tag-pill { font-size: 0.78rem; padding: 0.35rem 0.85rem; border: 1px solid var(--gray-light); border-radius: 20px; color: var(--gray-dark); }
+
+    .cta-section { padding: 8rem 3rem; text-align: center; }
+    .cta-section .section-label { text-align: center; }
+    .cta-section .section-title { max-width: 600px; margin: 0 auto 1.5rem; }
+    .cta-section .section-body { margin: 0 auto 2.5rem; text-align: center; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.08em; padding: 0.9rem 2.25rem; background: var(--accent); color: var(--white); border-radius: 2px; text-decoration: none; transition: background 0.2s; }
+    .btn-primary:hover { background: #245c41; }
+    .btn-secondary { display: inline-block; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.08em; padding: 0.9rem 2.25rem; border: 1.5px solid var(--black); color: var(--black); border-radius: 2px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .btn-secondary:hover { background: var(--black); color: var(--white); }
+
+    footer { background: var(--black); color: rgba(255,255,255,0.5); padding: 3rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--white); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a { font-size: 0.8rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { font-size: 0.75rem; width: 100%; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); text-align: center; }
+
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 1.5rem; }
+      .intro { grid-template-columns: 1fr; gap: 3rem; }
+      .intro-badge { bottom: 1rem; right: 1rem; }
+      .rooms-section { padding: 5rem 1.5rem; }
+      .rooms-grid { grid-template-columns: 1fr; }
+      .room-card:first-child { grid-column: span 1; }
+      .amenities-top { grid-template-columns: 1fr; gap: 3rem; }
+      .feature-inner { grid-template-columns: 1fr 1fr; }
+      .location-section { padding: 5rem 1.5rem; }
+      .location-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .cta-section { padding: 5rem 1.5rem; }
+      footer { padding: 2.5rem 1.5rem; }
+      .hero-content { padding: 0 1.5rem 4rem; }
+    }
+    @media (max-width: 600px) {
+      .feature-inner { grid-template-columns: 1fr; }
+      .amenity-grid { grid-template-columns: 1fr; }
+      .amenity-item { border-right: none !important; }
+      .amenity-item:last-child { border-bottom: none; }
+      .intro-stats { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a class="nav-logo" href="#">오피스 제주</a>
+    <ul class="nav-links">
+      <li><a href="#intro">소개</a></li>
+      <li><a href="#rooms">객실</a></li>
+      <li><a href="#amenities">시설</a></li>
+      <li><a href="#location">오시는 길</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">예약 문의</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1589197331516-4d84b72ebde3?w=1800&auto=format&fit=crop&q=80"
+      alt="제주 해변 풍경" loading="eager" />
+    <div class="hero-content">
+      <span class="hero-tag">Jeju Island · Workcation</span>
+      <h1 class="hero-title">일하고,<br />쉬고, 충전하는 섬</h1>
+      <p class="hero-sub">바다가 보이는 공유 오피스와 포근한 숙소가 함께하는 곳. 제주에서 다시 나답게.</p>
+      <a class="hero-btn" href="#intro">더 알아보기</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="intro">
+      <div class="intro-img-wrap">
+        <img class="intro-img"
+          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&auto=format&fit=crop&q=80"
+          alt="공유 오피스 내부" loading="lazy" />
+        <div class="intro-badge"><strong>365</strong>일 오픈</div>
+      </div>
+      <div>
+        <p class="section-label">About Office Jeju</p>
+        <h2 class="section-title">일과 휴식이<br />공존하는 공간</h2>
+        <p class="section-body">오피스 제주는 제주 애월에 자리한 워케이션 게스트하우스입니다.<br /><br />낮에는 쾌적한 공유 오피스에서 집중하고, 저녁에는 제주의 바람과 노을을 느끼세요. 빠른 인터넷, 독립 작업 공간, 편안한 숙소가 한 공간에 모여 있습니다.</p>
+        <div class="intro-stats">
+          <div class="stat"><div class="stat-num">1G</div><div class="stat-desc">유선 기가 인터넷</div></div>
+          <div class="stat"><div class="stat-num">12</div><div class="stat-desc">최대 수용 인원</div></div>
+          <div class="stat"><div class="stat-num">5분</div><div class="stat-desc">애월 해변까지</div></div>
+          <div class="stat"><div class="stat-num">24h</div><div class="stat-desc">라운지 이용 가능</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOMS -->
+  <div class="rooms-section" id="rooms">
+    <div class="rooms-header">
+      <div>
+        <p class="section-label">Rooms</p>
+        <h2 class="section-title">편안한 나만의 공간</h2>
+      </div>
+      <p style="font-size:.9rem;color:var(--gray);max-width:320px;text-align:right;">도미토리부터 프라이빗 룸까지, 여행 스타일에 맞게 선택하세요.</p>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-card">
+        <img class="room-img"
+          src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&auto=format&fit=crop&q=80"
+          alt="프라이빗 더블룸" loading="lazy" />
+        <div class="room-info">
+          <div class="room-name">프라이빗 더블룸</div>
+          <div class="room-tag">독립 욕실 · 오션뷰 · 최대 2인</div>
+        </div>
+      </div>
+      <div class="room-card">
+        <img class="room-img"
+          src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=700&auto=format&fit=crop&q=80"
+          alt="도미토리" loading="lazy" />
+        <div class="room-info">
+          <div class="room-name">도미토리</div>
+          <div class="room-tag">4인실 · 개인 커튼 · 공용 라운지</div>
+        </div>
+      </div>
+      <div class="room-card" style="grid-column:span 3;">
+        <img class="room-img"
+          src="https://images.unsplash.com/photo-1560185007-5f0bb1866cab?w=1400&auto=format&fit=crop&q=80"
+          alt="공유 라운지" loading="lazy" style="aspect-ratio:21/6;" />
+        <div class="room-info">
+          <div class="room-name">공유 라운지 & 카페 공간</div>
+          <div class="room-tag">24시간 이용 · 커피 무제한 · 스탠딩 데스크</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AMENITIES -->
+  <section id="amenities">
+    <div class="amenities">
+      <div class="amenities-top">
+        <div>
+          <p class="section-label">Amenities</p>
+          <h2 class="section-title">일에 집중할 수 있는<br />모든 것이 여기에</h2>
+          <p class="section-body">기가 인터넷부터 회의실, 프린터까지 — 업무에 필요한 환경을 빠짐없이 갖췄습니다.</p>
+        </div>
+        <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?w=800&auto=format&fit=crop&q=80"
+          alt="오피스 시설" loading="lazy"
+          style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px;" />
+      </div>
+      <div class="amenity-grid">
+        <div class="amenity-item"><div class="amenity-icon">⚡</div><div class="amenity-name">기가 인터넷</div><div class="amenity-desc">유선 1Gbps + 무선 Wi-Fi 6<br>전 구역 안정적인 연결</div></div>
+        <div class="amenity-item"><div class="amenity-icon">🖥️</div><div class="amenity-name">개인 워크스테이션</div><div class="amenity-desc">27" 모니터 · 인체공학 의자<br>1인 1좌석 보장</div></div>
+        <div class="amenity-item"><div class="amenity-icon">📹</div><div class="amenity-name">화상회의 룸</div><div class="amenity-desc">방음 처리된 독립 회의실<br>예약제 무료 이용</div></div>
+        <div class="amenity-item"><div class="amenity-icon">☕</div><div class="amenity-name">커피 & 스낵 바</div><div class="amenity-desc">원두커피 무제한<br>간식 & 음료 상시 비치</div></div>
+        <div class="amenity-item"><div class="amenity-icon">🚿</div><div class="amenity-name">쾌적한 샤워 시설</div><div class="amenity-desc">남녀 분리 샤워실<br>타월 · 어메니티 제공</div></div>
+        <div class="amenity-item"><div class="amenity-icon">🌿</div><div class="amenity-name">야외 테라스</div><div class="amenity-desc">바다 뷰 루프탑 테라스<br>노을 맞이 좌석 운영</div></div>
+        <div class="amenity-item"><div class="amenity-icon">🚲</div><div class="amenity-name">자전거 대여</div><div class="amenity-desc">게스트 무료 대여<br>제주 올레길 바로 연결</div></div>
+        <div class="amenity-item"><div class="amenity-icon">🅿️</div><div class="amenity-name">무료 주차</div><div class="amenity-desc">건물 내 전용 주차장<br>전기차 충전 가능</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE STRIP -->
+  <div class="feature-strip">
+    <div class="feature-inner">
+      <div class="feature-item"><div class="feature-num">01</div><div class="feature-name">Work Hard</div><div class="feature-desc">조용하고 쾌적한 환경에서 업무 효율을 높이세요.</div></div>
+      <div class="feature-item"><div class="feature-num">02</div><div class="feature-name">Rest Well</div><div class="feature-desc">하루 일과를 마친 후, 제주의 자연 속에서 쉬어가세요.</div></div>
+      <div class="feature-item"><div class="feature-num">03</div><div class="feature-name">Connect</div><div class="feature-desc">같은 가치를 가진 사람들과 자연스럽게 연결되세요.</div></div>
+      <div class="feature-item"><div class="feature-num">04</div><div class="feature-name">Recharge</div><div class="feature-desc">섬의 에너지로 일상을 새롭게 시작하세요.</div></div>
+    </div>
+  </div>
+
+  <!-- LOCATION -->
+  <div class="location-section" id="location">
+    <div class="location-inner">
+      <div>
+        <p class="section-label">Location</p>
+        <h2 class="section-title">제주 애월, 바다 옆</h2>
+        <p class="section-body">제주국제공항에서 차로 30분 거리의 애월읍에 위치합니다. 협재 해수욕장, 한림 공원 등 제주 서부의 주요 명소와 가깝습니다.</p>
+        <div class="location-tags">
+          <span class="tag-pill">🛫 공항 30분</span>
+          <span class="tag-pill">🌊 애월 해변 5분</span>
+          <span class="tag-pill">🏪 편의점 도보 2분</span>
+          <span class="tag-pill">🍽️ 맛집 밀집 지역</span>
+          <span class="tag-pill">🚌 버스 정류장 1분</span>
+        </div>
+        <p style="font-size:.85rem;color:var(--gray);margin-top:1.5rem;">📍 제주특별자치도 제주시 애월읍 (예약 후 정확한 주소 안내)</p>
+      </div>
+      <img class="location-img"
+        src="https://images.unsplash.com/photo-1537531008-e8c6eab4fb27?w=900&auto=format&fit=crop&q=80"
+        alt="제주 애월 해안" loading="lazy" />
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section" id="contact">
+    <p class="section-label">Reservation</p>
+    <h2 class="section-title">제주에서의 하루를<br />시작할 준비가 됐나요?</h2>
+    <p class="section-body">1박부터 한 달 장기 숙박까지 다양한 플랜을 운영 중입니다. 문의는 언제든 환영합니다.</p>
+    <div class="cta-btns">
+      <a class="btn-primary" href="mailto:hello@officejeju.com">이메일로 문의하기</a>
+      <a class="btn-secondary" href="https://open.kakao.com" target="_blank">카카오톡 문의</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <a class="footer-logo" href="#">오피스 제주</a>
+      <ul class="footer-links">
+        <li><a href="#intro">소개</a></li>
+        <li><a href="#rooms">객실</a></li>
+        <li><a href="#amenities">시설</a></li>
+        <li><a href="#location">오시는 길</a></li>
+        <li><a href="#contact">예약 문의</a></li>
+      </ul>
+    </div>
+    <div class="footer-inner footer-copy">© 2026 오피스 제주. All rights reserved.</div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+</body>
+</html>
